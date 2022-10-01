@@ -1,0 +1,126 @@
+== Changelog ==
+= 1.3.3 =
+* [new] WP eMember plugin login, register support
+* [new] Paid Membership pro plugin login, register support
+* [new] Added Ultimate member plugin login, register support
+* [proaddon] there is update in pro addon, pls upgrade
+
+= 1.3.2 =
+* [new] bbPress Support
+* [update] For automatic integration sep post type integration field added, pls check setting and review.
+* [proaddon] there is update in pro addon, pls upgrade
+
+= 1.3.1 =
+* [update] Adjusted allow delete all param in my bookmarks shortcode in customizer method
+* [update] Widget output is not via shortcode and shortcode template is used for widget
+* [fixed] My Bookmarks widget and My Bookmarks Grid widget are fixed
+* [proaddon] there is update in pro addon, pls upgrade
+
+= 1.3.0 =
+* [new] Delete all bookmark  param in my bookmarks grid shortcode, elementor widget, vc widgets
+
+= 1.2.16 =
+* [fixed] Fixed the grid shortcode that was buggy in 1.2.15 version
+
+= 1.2.15 =
+* [improvement] userid param in shortcode or in url (?userid=) is checked everywhere with better logic
+
+= 1.2.14 =
+* [new] New hook/filter 'cbxwpbookmark_max_cat_limit' introduced for maximum category count per user
+
+= 1.2.13 =
+* [fixed] Fixed fatal error if buddypress activity stream component is disabled.
+
+= 1.2.12 =
+* [fixed] BuddyPress display fixed
+
+= 1.2.11 =
+* [improvement] Login/Registration popup style fixed
+* [new] BuddyPress Activity Post - New activity post is made on user A's timeline when when user A bookmarks something
+* [new] BuddyPress Notification - User A gets notification when user B bookmarks his/her content
+* [new] Disable buddypress fav
+* [new] Show buddypress bookmarked activities in activity sub menu
+
+= 1.2.10 =
+* [improvement] My bookmark grid shortcode now takes username and email as userid
+
+= 1.2.9 =
+* [added] Added auto integration for woocommerce short description.
+
+== Changelog ==
+= 1.2.8 =
+
+* [updated] Woocommerce integration settings have been changed, please check the plugin's setting page for "Pro Settings" and "Woocommerce intergation". All woocommerce released fields move to woocommerce integration tab.
+
+= 1.2.7 =
+
+* [added] New filter 'cbxwpbookmark_can_user_create_own_category' based on core plugin version 1.6.0
+* [added] BuddyPress Bookmark display - bookmark count based on the auto integration
+* [added] BuddyPress - on buddyPress activity delete now deletes the bookmarks
+* [fixed] BuddyPress - Dashboard bookmark listing shows correct title for buddyPress activity bookmark
+* [new] BuddyBoss - Displays featured image if any activity has at least one image.
+* [updated] Better WooCommerce integration
+
+= 1.2.6 =
+
+* [added] Sort my bookmarked posts grid by 'title'  - long-awaited feature
+* [added] Sort most bookmarked posts grid by 'title' - long-awaited feature
+* [added] Sort most bookmarked products by 'title' - long-awaited feature
+* [added] Sort most bookmarked downloads by 'title' - long-awaited feature
+* [bugfix] 'Load more' features works perfectly for most bookmarked post grid
+
+= 1.2.5 =
+
+* [added] Allowing guest to display
+
+= 1.2.4 =
+
+* [fixed] Grid shortcode params in customizer setting had two bugs to save field which is fixed now.
+* [added] Restrict Content Pro Login form integration
+
+= 1.2.3 =
+
+* [fixed] Custom post type support was not working in version 1.2.2 which is fixed
+
+= 1.2.2 =
+
+* [added] Added filter for post title for grid shortcode(my bookmark grid)
+
+= 1.2.1 =
+
+* [added] Added filter for post grid thumb url for grid shortcode(my bookmark grid)
+
+= 1.2.0 =
+* [added] Custom bookmark icon/image from plugin's setting
+
+= 1.1.10 =
+* [added] Classic Widget: Most Bookmarked Posts Grid
+* [update] All classic pro widgets updated
+
+* [added] Elementor Widget: Most Bookmarked Posts Grid
+* [added] Elementor Widget: All Bookmarks/My Bookmarked Posts Grid
+* [added] Elementor Widget: Most Bookmarked Downloads(EDD)
+* [added] Elementor Widget: Most Bookmarked Products(WOO)
+
+* [added] WPBakery Widget: Most Bookmarked Posts Grid
+* [added] WPBakery Widget: All Bookmarks/My Bookmarked Posts Grid
+* [added] WPBakery Widget: Most Bookmarked Downloads(EDD)
+* [added] WPBakery Widget: Most Bookmarked Products(WOO)
+
+* [added] Shortcode: Most Bookmarked Downloads(EDD)
+* [added] Shortcode: Most Bookmarked Products(WOO)
+* [added] Shortcode: Most Bookmarked Posts Grid
+
+* [removed] hook/filter: cbxwpbookmark_othertype_item filter callback method removed as it's removed from core
+* [removed] hook/filter: cbxwpbookmark_othertype_mostitem filter callback method removed as it's removed from core
+
+* [added] hook/filter: cbxwpbookmark_item_othertype filter callback method added to handle other type in my bookmarks widget/shortcode
+* [added] hook/filter: cbxwpbookmark_mostitem_othertype filter callback method added to handle other type in my most bookmarks widget/shortcode
+
+* [added] Gutenberg Block: Most Bookmarked Posts Grid
+* [added] Gutenberg Block: Most Bookmarked Products(woo) - list
+* [added] Gutenberg Block: Most Bookmarked Downloads(Edd) - list
+
+
+= 1.1.9 =
+* [added] Checks if core plugin is active in activation in more better way.

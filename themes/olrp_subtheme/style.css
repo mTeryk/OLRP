@@ -1,0 +1,146 @@
+@charset "UTF-8";
+/*
+Theme Name:   OLRP Child Theme
+Theme URI:    https://www.teryk.org/
+Description:  A Twenty Twenty-One child theme
+Author:       Teryk
+Author URI:   https://www.teryk.org
+                      Template:     twentytwentyone
+                      Version:      1.0.0
+Text Domain:  teryk
+*/
+
+/* allow full width content*/
+@media only screen and (min-width: 200px) {
+
+  :root {
+    --responsive--aligndefault-width: min(calc(100vw - 8 * var(--global--spacing-horizontal)), 1900px);
+    --responsive--alignwide-width: min(calc(100vw - 8 * var(--global--spacing-horizontal)), 1900px);
+  }
+}
+@media only screen and (min-width: 482px) {
+  .site-header {
+    padding-top: calc(var(--global--spacing-vertical));
+    padding-left: 5px;
+  }
+}
+
+.site-header {
+  padding-top: calc(0.25 * var(--global--spacing-vertical));
+  padding-bottom: calc( 0.5 * var( --global--spacing-vertical));
+}
+@media only screen and (min-width: 482px) {
+
+  .site-header {
+    padding-bottom: calc( 0.5 * var(--global--spacing-vertical));
+  }
+}
+div.site-branding
+{
+  float:left;
+  border-style: solid;
+  border-color: black;
+  max-width: 33%;
+  min-width: 200px;
+  padding:10px;
+}
+
+a.tagcloud-link
+{
+  float:left;
+}
+div.site-branding
+{
+  font-family: 'Noto Sans Mono', monospace;
+}
+
+h1.site-title
+{
+  font-size: 2em;
+  text-align: left;
+  margin-left: .5em;
+  font-family: 'Noto Sans Mono', monospace;
+}
+
+article.olrp_resource
+{
+  background-color: white;
+  margin-right:auto;
+  margin-left:auto;
+  width:80%;
+}
+
+div.entry-content h3
+{
+  width:90%;
+  margin-right:auto;
+  margin-left:auto;
+
+}
+
+div.olrp_resource_archive
+{
+  width:90%;
+  margin-right:auto;
+  margin-left:auto
+}
+
+.widget-area, .pagination, .comments-pagination, .post-navigation, .site-footer, .site-header, .alignwide, .wide-max-width {
+  max-width: var(--responsive--alignwide-width);
+  margin-left: 5%;
+}
+.site-title
+{
+
+}
+.site-title, .page-title {
+  text-align: left;
+  font-family: 'Noto Sans Mono', monospace;
+}
+
+h1.site-title, h1.page-title {
+  font-size: 2.5em;
+  text-align: left;
+  font-family: 'Noto Sans Mono', monospace;
+}
+
+a.tag-cloud-link
+{
+  padding:5px;
+  text-decoration: none;
+}
+
+div.tag_cloud_container
+{
+  float:left;
+  border-style: dot-dot-dash;
+
+  max-width: 60%;
+  min-width: 500px;
+  padding:10px;
+}
+
+.singular .entry-title {
+  font-size: 3em;
+}
+.site-header {
+  flex-wrap:nowrap;
+}
+
+.cbxwpbkmarktrig {
+  font-size: 1.6em;
+  font-weight: bold;
+  padding-left: 20px;
+  margin-top: 50px;
+}
+
+.rmp-results-widget__visual-rating
+{
+  padding-left: 20px;
+  margin-top:5px;
+}
+
+.cbxbookmark_card
+{
+  max-width: 300px;
+}

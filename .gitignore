@@ -1,0 +1,14 @@
+# Git ignore file for OLRP
+
+image_downloads/**
+uploads/**
+plugins/export-media-with-selected-content.2.1.4/
+plugins/media-sync/
+# plugins/rate-my-post/
+plugins/loco-translate/
+plugins/akismet/
+# plugins/cbxwpbookmark/
+# plugins/cbxwpbookmarkaddon/
+themes/twentytwentytwo/
+# themes/twentytwentyone/
+

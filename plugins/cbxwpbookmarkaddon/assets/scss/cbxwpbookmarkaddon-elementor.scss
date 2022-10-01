@@ -1,0 +1,67 @@
+/*
+bookmark post grid - icon_post_grid.png  https://www.iconfinder.com/icons/1031514/grid_home_menu_table_icon
+bookmark most grid - ucon_most_grid.png  custom , see svg stored
+*/
+.cbxwpbookmars-post-grid-icon {
+	position: relative;
+}
+.cbxwpbookmars-post-grid-icon:before{
+	content: ' ';
+	background-image: url('../img/widget_icons/icon_post_grid.png');
+	background-size: contain;
+	width: 28px;
+	height: 28px;
+	display: block;
+	overflow: hidden;
+	background-size: contain;
+	background-repeat: no-repeat;
+	margin: 0 auto;
+}
+
+.cbxwpbookmars-most-grid-icon {
+	position: relative;
+}
+.cbxwpbookmars-most-grid-icon:before {
+	content: ' ';
+	background-image: url('../img/widget_icons/icon_most_grid.png');
+	background-size: contain;
+	width: 28px;
+	height: 28px;
+	display: block;
+	overflow: hidden;
+	background-size: contain;
+	background-repeat: no-repeat;
+	margin: 0 auto;
+}
+
+.cbxwpbookmars-most-downloads-icon {
+	position: relative;
+}
+.cbxwpbookmars-most-downloads-icon:before {
+	content: ' ';
+	background-image: url('../img/widget_icons/icon_most_downloads.png');
+	background-size: contain;
+	width: 28px;
+	height: 28px;
+	display: block;
+	overflow: hidden;
+	background-size: contain;
+	background-repeat: no-repeat;
+	margin: 0 auto;
+}
+
+.cbxwpbookmars-most-products-icon {
+	position: relative;
+}
+.cbxwpbookmars-most-products-icon:before {
+	content: ' ';
+	background-image: url('../img/widget_icons/icon_most_products.png');
+	background-size: contain;
+	width: 28px;
+	height: 28px;
+	display: block;
+	overflow: hidden;
+	background-size: contain;
+	background-repeat: no-repeat;
+	margin: 0 auto;
+}

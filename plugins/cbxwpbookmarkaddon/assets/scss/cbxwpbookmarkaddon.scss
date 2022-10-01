@@ -1,0 +1,207 @@
+.cbxbookmark_card_clear{
+	clear: both;
+}
+.cbxbookmark_card {
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.15);
+	transition: 0.3s;
+	border-radius: 8px;
+	width: 100%;
+	height: 100%;
+}
+
+.cbxbookmark_card_cat_delete{
+	margin: 0px;
+	margin-bottom: 5px;
+}
+
+/* On mouse-over, add a deeper shadow */
+.cbxbookmark_card:hover {
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.15);
+}
+.cbxbookmark_card a.cbxbookmark_card_teaser{
+	text-align: center;
+	max-height: 150px;
+	display: block;
+	border-bottom: none !important;
+	overflow: hidden;
+}
+.cbxbookmark_card a.cbxbookmark_card_teaser:hover, .cbxbookmark_card a.cbxbookmark_card_teaser:focus, .cbxbookmark_card a.cbxbookmark_card_teaser:active{
+	border-bottom: none !important;
+}
+.cbxbookmark_card a.cbxbookmark_card_teaser img {
+	border-radius: 5px 5px 0 0;
+	width: 100%;
+	height:auto;
+	margin: 0 auto;
+}
+
+.cbxbookmark_card a.cbxbookmark_card_teaser img:hover{
+	opacity: .8;
+}
+
+/* Add some padding inside the card container */
+.cbxbookmark_card_container {
+	padding: 2px 16px;
+}
+
+.cbxbookmark_card_container p.cbxbookmark_card_title{
+	font-size: 16px !important;
+	line-height: 1.5 !important;
+	font-weight: bold !important;
+	margin: 15px 0;
+	padding: 0px;
+}
+
+.cbxbookmark_card_container p.cbxbookmark_card_title a{
+	border-bottom: none !important;
+	text-decoration: none !important;
+}
+
+.cbxbookmark_card_container p{
+	/*margin-bottom: 10px;*/
+	float: left; width: 100%;
+}
+.cbxbookmark_card_container .cbxbookmark_card_cat{
+	float: left; display: inline-block;
+	font-size: 14px;
+}
+
+.cbxbookmark_card_container .cbxbookmark-delete-btn{
+	float: right; display: inline-block;
+	border-bottom: none !important;
+}
+
+.cbxbookmark_cards_wrapper .cbxbookmark-more-wrap{
+	clear: both;
+	width: 100%;
+	text-align: center;
+	margin: 5px 0;
+	box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2);
+	transition: all 0.3s;
+	border-radius: 5px;
+}
+.cbxbookmark_cards_wrapper .cbxbookmark-more-wrap:hover{
+	box-shadow: 2.736px 7.518px 10px 0 rgba(0, 0, 0, 0.15) !important;
+}
+
+.cbxbookmark_cards_wrapper .cbxbookmark-more-wrap a{
+	width: 100%;
+	display: block;
+	text-decoration: none !important;
+	font-size: 16px;
+	line-height: 1.5;
+	padding: 3px 0;
+	box-shadow: none !important;
+}
+
+.cbxwpbkmarkwrap-buddypress_activity{
+	float: right;
+	display: inline-block;
+	width: auto;
+}
+
+.cbxwpbkmarkwrap-buddypress_activity .cbxwpbkmarklistwrap{
+	/*
+	position: fixed !important;
+	width: 300px;
+	max-width: 300px;
+	margin: auto;
+	position: absolute;
+	top: 0; left: 0; bottom: 0; right: 0;
+	*/
+}
+
+.bootstrap-wrapper.cbxbookmark_cards_wrapper .col-xs-12,
+.bootstrap-wrapper.cbxbookmark_cards_wrapper .col-sm-6,
+.bootstrap-wrapper.cbxbookmark_cards_wrapper .col-md-4{
+	margin-bottom: 20px;
+}
+
+.cbxwpbookmarkgrid-readmore-wrap{
+	text-align: center;
+}
+
+.cbxwpbookmarkgrid-readmore{
+	box-shadow: none !important;
+}
+
+.widget .cbxbookmark_card_col{
+	width: 100% !important;
+	-webkit-box-flex: 0;
+	-webkit-flex: 0 0 100%;
+	-ms-flex: 0 0 100%;
+	flex: 0 0 100%;
+	max-width: 100%;
+}
+
+.widget .cbxbookmark_card_col a,
+.widget .cbxbookmark_card_col a:hover,
+.widget .cbxbookmark_card_col a:focus,
+.widget .cbxbookmark_card_col a:active{
+	box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+.entry-content .cbxbookmark_card_col a,
+.entry-content .cbxbookmark_card_col a:hover,
+.entry-content .cbxbookmark_card_col a:focus,
+.entry-content .cbxbookmark_card_col a:active{
+	box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+.product_list_widget{}
+.product_list_widget .product.woocommerce.add_to_cart_inline{
+	margin-bottom: 5px;
+	text-align: right;
+}
+.cbxwpbookmarkgrid-widget-class .cbxwpbookmarkgrid-readmore{
+	font-size: 14px;
+	line-height: 20px;
+	cursor: pointer;
+	padding: 5px 10px;
+	display: inline-block;
+	clear: both;
+	border-radius: 5px;
+	font-weight: 700;
+	transition: all 0.3s;
+}
+.cbxwpbookmarkgrid-widget-class .cbxwpbookmarkgrid-readmore:hover{
+	box-shadow: 2.736px 7.518px 10px 0 rgba(0, 0, 0, 0.15) !important;
+}
+
+$colors: "default" #e2e2e2 #212121,
+"red" #f44336 #ffffff,
+"purple" #673AB7 #ffffff,
+"indigo" #3F51B5 #ffffff,
+"blue" #2196F3 #ffffff,
+"teal" #009688 #ffffff,
+"green" #4CAF50 #ffffff,
+"orange" #FF9800 #ffffff,
+"brown" #795548 #ffffff,
+"blue-gray" #607D8B #ffffff;
+
+@each $color, $code, $fontcolor in $colors {
+	.cbxwpbookmark-#{$color} {
+		.cbxwpbookmarkgrid-widget-class .cbxwpbookmarkgrid-readmore{
+			background: $code;
+			color: $fontcolor;
+		}
+	}
+}
+
+.cbxwpbkmarkguest-message{
+	.bbp-form{
+		padding: 0px !important;
+		border: 0px !important;
+	}
+}
+
+#bbpress-forums{
+	overflow: visible;
+
+	.cbxwpbkmarkwrap{
+		float: right;
+		margin-top: -4px;
+	}
+}
