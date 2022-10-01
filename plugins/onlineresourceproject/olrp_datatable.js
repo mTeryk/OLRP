@@ -1,4 +1,4 @@
-
+/* Uses JQuery DataTables to add interactivity to all tables of class olrp_display_table */
 
   jQuery(document).ready(function(){
     jQuery(".olrp_display_table").DataTable({

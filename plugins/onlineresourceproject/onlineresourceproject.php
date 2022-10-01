@@ -313,7 +313,7 @@ public function bloginfo_styling($text,$show)
 	}
 
 
-	/* Callback to add the metaboxes, registered with 'save_post' hook */
+	/* Callback to add the metaboxes, registered in init with register_post_type() */
 	public function add_post_meta_boxes($post) {
 
 		foreach ($this->custom_meta as $index => $keyval) {
@@ -340,7 +340,6 @@ public function bloginfo_styling($text,$show)
 	/* Display the post meta box in the add edit page. */
 	public function resource_meta_callback( $post,$args )
 	{
-		/* TERYK TODO: Figure out nonce security */
 		/* TERYK TODO: Figure out nonce security */
 		//wp_nonce_field( basename( __FILE__ ), 'olrp_resource_title_meta_box' );
 
