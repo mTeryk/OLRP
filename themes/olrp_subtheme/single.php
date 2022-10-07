@@ -14,7 +14,7 @@ get_header();
 /* Start the Loop */
 while ( have_posts() ) :
 	the_post();
-	echo do_shortcode('[​cbxwpbookmarkbtn object_id="'.$post->ID.'" object_type="'.$post->post_type.'"]');
+
 	get_template_part( 'template-parts/content/content-single' );
 
 	if ( is_attachment() ) {

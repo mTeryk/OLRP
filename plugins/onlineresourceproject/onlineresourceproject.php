@@ -16,8 +16,7 @@ Author URI: https://teryk.com
 License: GPLv2 or later
 
 Text Domain: teryk
-
-/* Create one or more meta boxes to be displayed on the post editor screen. */
+*/
 
 define('__ROOT__', dirname(__FILE__));
 $olrp_m = new olrp_manager();
@@ -29,10 +28,7 @@ require_once(__ROOT__ . '/../cbxwpbookmark/includes/cbxwpbookmark-functions.php'
 
 /* Plugin Hooks */
 add_action( 'init', array($olrp_m,"init"));
-add_action( 'save_post_olrp_resource', array($olrp_m,"save_events_meta"),1,2);
-add_action( 'wp_enqueue_scripts', array($olrp_m,"enqueue_scripts"));
-add_action('wp_head', array($olrp_m,"head_output"));
-//add_filter('bloginfo', array($olrp_m,"bloginfo_styling"),10,2);
+
 
 class olrp_manager
 {
@@ -42,75 +38,40 @@ class olrp_manager
 	public olrp_display $olrp_disp;
 	public olrp_data $olrp_data;
 
-public function bloginfo_styling($text,$show)
-{
-	if ($show == 'description')
-	{
-		$words = explode(' ',$text);
-		$text = "";
-		$n = 0;
-		foreach ($words as $word){
-			$text .= "<span id=\"header_word_$n\"> $word </span>";
-			$n++;
-		}
-	}
-	return $text;
-}
-
-	public function head_output()
-	{
-?>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<?php
-	}
-	public function olrp_unhook_title()
-	{
-		remove_filter('the_title',[$this->olrp_disp,'olrp_modify_title']);
-	}
-	public function fix_search($query)
-	{
-		if ( $query->is_main_query() && ! is_admin() ) {
-			if(! isset($query->query_vars['page_id']) || $query->query_vars['page_id'] == '' || $query->query_vars['page_id'] == 0) {
-				$query->set( 'post_type', array( 'olrp_resource', 'post' ) );
-			}
-		}
-
-		return $query;
-	}
-
-	function add_toolbar_items($admin_bar) {
-
-		$url = cbxwpbookmarks_mybookmark_page_url();
-		$admin_bar->add_menu( array(
-			'id'    => 'my-resource-lists',
-			'title' => 'My Resource Lists',
-			'href'  => $url,
-			'meta'  => array(
-				'title' => __( 'My Resource Lists' ),
-			),
-		) );
-	}
-
 	public function init()
 	{
 		$this->olrp_disp = new olrp_display($this);
 		$this->olrp_data = new olrp_data($this);
 
+		/* Add items to the admin page and toolbar*/
 		add_action( 'admin_menu', array($this->olrp_data,'olrp_create_menu_page'));
+		add_action('admin_bar_menu', array($this,'add_toolbar_items'), 100);
 
+		/* Add our scripts and data to the html header*/
+		add_action( 'wp_enqueue_scripts', array($this,"enqueue_scripts"));
+		add_action('wp_head', array($this,"head_output"));
+
+		/* Modify the title in the bog header but not in the footer */
+		add_filter('the_title',[$this->olrp_disp,'olrp_modify_title']);
+		add_action('get_footer',[$this,'olrp_unhook_title']);
+
+		/* Save our metadata when the post is saved*/
+		add_action( 'save_post_olrp_resource', array($this,"save_events_meta"),1,2);
+
+		//add_filter('bloginfo', array($olrp_m,"bloginfo_styling"),10,2);
+
+		/*Shortcodes to display the index table and the individual resources */
 		add_shortcode('olrp_display_table',array($this->olrp_disp,'olrp_display_table'));
 		add_shortcode('olrp_display_resource',array($this->olrp_disp,'olrp_display_resource'));
 
-		add_filter('the_content',[$this->olrp_disp,'olrp_insert_content']);
-		add_filter('the_title',[$this->olrp_disp,'olrp_modify_title']);
+		/* Hacks */
+		/* Fix search so our custom post type shows up in the main search */
 		add_filter( 'pre_get_posts', [$this,'fix_search'] );
 
-		add_filter( 'wp_nav_menu_object', array($this,'add_extra_item_to_nav_menu'), 10, 2 );
+		/* Insert olrp_display_resource shortcode into all posts, should really do this in save_post but
+		then I would have to go and save all the already created posts*/
+		add_filter('the_content',[$this->olrp_disp,'olrp_insert_content']);
 
-		add_action('admin_bar_menu', array($this,'add_toolbar_items'), 100);
-
-		add_action('get_footer',[$this,'olrp_unhook_title']);
 
 		/**Custom Metadata Types
 		 * uses an ordered array to control the order that forms are
@@ -130,6 +91,7 @@ public function bloginfo_styling($text,$show)
 	);
 
 
+		/* Arguments and $labels for register_post_type */
 		$labels = array(
 			'name'                  => _x( 'OLRP Resources', 'Post type general name', 'olrp_resource' ),
 			'singular_name'         => _x( 'OLRP Resource', 'Post type singular name', 'olrp_resource' ),
@@ -183,6 +145,56 @@ public function bloginfo_styling($text,$show)
 
 	}
 
+	public function bloginfo_styling($text,$show)
+	{
+		if ($show == 'description')
+		{
+			$words = explode(' ',$text);
+			$text = "";
+			$n = 0;
+			foreach ($words as $word){
+				$text .= "<span id=\"header_word_$n\"> $word </span>";
+				$n++;
+			}
+		}
+		return $text;
+	}
+
+	public function head_output()
+	{
+		?>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<?php
+	}
+	public function olrp_unhook_title()
+	{
+		remove_filter('the_title',[$this->olrp_disp,'olrp_modify_title']);
+	}
+
+	public function fix_search($query)
+	{
+		if ( $query->is_main_query() && ! is_admin() ) {
+			if(! isset($query->query_vars['page_id']) || $query->query_vars['page_id'] == '' || $query->query_vars['page_id'] == 0) {
+				$query->set( 'post_type', array( 'olrp_resource', 'post' ) );
+			}
+		}
+
+		return $query;
+	}
+
+	function add_toolbar_items($admin_bar) {
+
+		$url = cbxwpbookmarks_mybookmark_page_url();
+		$admin_bar->add_menu( array(
+			'id'    => 'my-resource-lists',
+			'title' => 'My Resource Lists',
+			'href'  => $url,
+			'meta'  => array(
+				'title' => __( 'My Resource Lists' ),
+			),
+		) );
+	}
 	/** turns the ordered custom_meta array into an associative array */
 	public function get_meta($flipped = false)
 	{
@@ -351,6 +363,7 @@ public function bloginfo_styling($text,$show)
 	*/?>
 			<input class="widefat" type="text" name="<?php echo($val)?>" id="<?php echo($val)?>" value="<?php echo esc_attr( get_post_meta( $post->ID, $val, true ) ); ?>" size="30" />
 		</p>
+
 		<?php
 	}
 

@@ -1,7 +1,7 @@
 <?php
 class olrp_display
 {
-	public olrp_manager $olrp_m;
+	public olrp_manager $olrp_m; /*import olrp_manager from onlineresourceproject.php*/
 
 	function __construct(olrp_manager $olrp_m)
 	{
@@ -11,11 +11,10 @@ class olrp_display
 	 *
 	 * Displays all the resources in an html table. Later extend to filter the resources by category etc.
 	 *
-	 * @param array $options specify which metadata to display
+	 * @param array $options specify which metadata to display **UNUSED**
 	 */
 
-	public function olrp_display_table()
-	{
+	public function olrp_display_table(): string {
 		$output = '<table class="olrp_display_table display compact" style="width:100%"><thead><th>Title</th><th>URL</th><th>Creator</th><th>Summary</th><th>Tags</th></thead>';
 		$args = array();
 		$args['post_type'] = 'olrp_resource';
@@ -36,14 +35,13 @@ class olrp_display
 			if ($tags_obj) {
 				foreach ($tags_obj as $tag) {
 					$name = $tag->name;
-					$tags_str .= "<a href=\"?tag=$name\"> $name </a> , ";
+					$tags_str .= "<a href=\"?tag=$name\"> $name </a> , "; /*FIXME: likely bug here, need to html_encode to manage spaces*/
 				}
 			}
 
 
 
 			$output .= "<tr>";
-			//$output .= "<td><a target=\"_blank\" href=\" $discussion \"> $title </a></td>";
 			$output .= "<td><a href=\" $discussion \"> $title </a></td>";
 			$output .= "<td>$url</td>";
 			$output .= "<td> $creators </td>";
@@ -68,8 +66,7 @@ class olrp_display
 	 *
 	 * @return string metadata value
 	 **/
-	public function olrp_get_post_meta($post_id, $meta_key)
-	{
+	public function olrp_get_post_meta($post_id, $meta_key): string {
 		$post_meta = get_post_meta($post_id); //metadata for this post
 
 		return isset( $post_meta[ $meta_key ] ) ? current( $post_meta[ $meta_key ] ) : "";
@@ -120,6 +117,7 @@ class olrp_display
 
 	public function olrp_modify_title($title){
 
+		//FIXME - Don't add URL to post titles in navigation (Previous / Next Post
 		if (is_single() && 'olrp_resource' == get_post_type()) {
 			$url = $this->olrp_get_post_meta( get_post()->ID, "olrp-resource-url", true );
 
