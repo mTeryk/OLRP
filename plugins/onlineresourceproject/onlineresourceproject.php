@@ -19,17 +19,17 @@ Text Domain: teryk
 */
 
 define('__ROOT__', dirname(__FILE__));
-$olrp_m = new olrp_manager();
 
 require_once(__ROOT__ . '/olrp-import-utils.php');
 require_once(__ROOT__ . '/olrp-display-table.php');
 require_once(__ROOT__ . '/olrp_taxonomies.php');
 require_once(__ROOT__ . '/../cbxwpbookmark/includes/cbxwpbookmark-functions.php');
 
-/* Plugin Hooks */
-add_action( 'init', array($olrp_m,"init"));
+/* Create our OLRP Manager, constructor registers for init which instatiates the the plugin*/
+new olrp_manager();
 
 
+/* This class does the majority of the work for the plugin, registers callbacks, adds menu items etc. */
 class olrp_manager
 {
 	public $custom_meta; //array for holding meta_data keys
@@ -38,10 +38,21 @@ class olrp_manager
 	public olrp_display $olrp_disp;
 	public olrp_data $olrp_data;
 
+	function __construct()
+	{
+		add_action( 'init', [$this, 'init']);
+	}
+
+	/**
+	 * Init method for the plugin. Does all the work to register callbacks, add scripts to the header, add menu items etc.
+	 */
 	public function init()
 	{
 		$this->olrp_disp = new olrp_display($this);
 		$this->olrp_data = new olrp_data($this);
+
+		/* register our taxonomies */
+		olrp_resource_register_taxonomies();
 
 		/* Add items to the admin page and toolbar*/
 		add_action( 'admin_menu', array($this->olrp_data,'olrp_create_menu_page'));
@@ -51,7 +62,11 @@ class olrp_manager
 		add_action( 'wp_enqueue_scripts', array($this,"enqueue_scripts"));
 		add_action('wp_head', array($this,"head_output"));
 
-		/* Modify the title in the bog header but not in the footer */
+		/* Adds dropdowns to filter posts by taxonomy in admin bulk edit page - from olrp_taxonomies.php*/
+		add_action('restrict_manage_posts', 'olrp_filter_post_type_by_taxonomy');
+		add_filter('parse_query', 'olrp_convert_id_to_term_in_query');
+
+		/* Modify the title in the blog header but not in the footer */
 		add_filter('the_title',[$this->olrp_disp,'olrp_modify_title']);
 		add_action('get_footer',[$this,'olrp_unhook_title']);
 
@@ -73,7 +88,7 @@ class olrp_manager
 		add_filter('the_content',[$this->olrp_disp,'olrp_insert_content']);
 
 
-		/**Custom Metadata Types
+		/** Custom Metadata Types
 		 * uses an ordered array to control the order that forms are
 		 * created in edit/create dialog
 		 * */
@@ -145,6 +160,15 @@ class olrp_manager
 
 	}
 
+	/**
+	 * Splits up the blog info (CTE - Online Learning Resource Project) so that each word can be styled individually
+	 * @param $text
+	 * @param $show
+	 *
+	 *
+	 *
+	 * @return string
+	 */
 	public function bloginfo_styling($text,$show)
 	{
 		if ($show == 'description')
@@ -160,6 +184,9 @@ class olrp_manager
 		return $text;
 	}
 
+	/**
+	 * Outputs the Google Font links into the header so we can use fancy fonts
+	 */
 	public function head_output()
 	{
 		?>
@@ -167,11 +194,18 @@ class olrp_manager
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<?php
 	}
+
+	/**
+	 * Removes the Title Hook so that we don't turnit into a url in the footer
+	 */
 	public function olrp_unhook_title()
 	{
 		remove_filter('the_title',[$this->olrp_disp,'olrp_modify_title']);
 	}
 
+	/**
+	 * Fixes the main search so that our custom posts are returned
+	 */
 	public function fix_search($query)
 	{
 		if ( $query->is_main_query() && ! is_admin() ) {
@@ -183,6 +217,9 @@ class olrp_manager
 		return $query;
 	}
 
+	/**
+	 * Add the My Resource List Menu Item to the Admin header
+	 */
 	function add_toolbar_items($admin_bar) {
 
 		$url = cbxwpbookmarks_mybookmark_page_url();
@@ -195,7 +232,9 @@ class olrp_manager
 			),
 		) );
 	}
-	/** turns the ordered custom_meta array into an associative array */
+	/**
+	 * Turns the ordered custom_meta array into an associative array
+	 */
 	public function get_meta($flipped = false)
 	{
 		$meta =array();
@@ -211,6 +250,9 @@ class olrp_manager
 		return $meta;
 	}
 
+	/**
+	 * Loads the header scripts
+	 */
 	public function add_frontend_scripts () {
 		$this->styles = array(
 			'jquery-datatables'       => array(
@@ -294,6 +336,10 @@ class olrp_manager
 
 		);
 	}
+
+	/**
+	 * Registers the header scripts with Wordpress
+	 */
 	public function register_scripts()
 	{
 		foreach ( $this->scripts as $handle => $script ) {
@@ -312,6 +358,9 @@ class olrp_manager
 		}
 	}
 
+	/**
+	 * Tells Wordpress about our header scripts. Allows it to do some checks for duplicates.
+	 */
 	public function enqueue_scripts()
 	{
 		foreach ( $this->scripts as $handle => $script ) {
@@ -325,7 +374,9 @@ class olrp_manager
 	}
 
 
-	/* Callback to add the metaboxes, registered in init with register_post_type() */
+	/**
+	 * Callback to add the metaboxes, registered in init with register_post_type()
+	 */
 	public function add_post_meta_boxes($post) {
 
 		foreach ($this->custom_meta as $index => $keyval) {
@@ -349,7 +400,13 @@ class olrp_manager
 
 		}
 	}
-	/* Display the post meta box in the add edit page. */
+
+
+	/**
+	 * Callback to add the metaboxes, registered in init with register_post_type()
+	 * @param $post
+	 * @param $args
+	 */
 	public function resource_meta_callback( $post,$args )
 	{
 		/* TERYK TODO: Figure out nonce security */
@@ -369,7 +426,8 @@ class olrp_manager
 
 	/* Event kicked off when saving a post, updates metadata */
 
-	/** Save Metadata on Post Save
+	/**
+	 * Save Metadata on Post Save
 	 *
 	 *  Saves the metadata associated with the post on save. We have to use the $_POST global because the
 	 *  metadata is not stored in the WP_Post object.
@@ -379,7 +437,7 @@ class olrp_manager
 	 *
 	 * @return int Post ID
 	 **/
-	public function save_events_meta( $post_id, $post )
+	public function save_events_meta( $post_id, $post ):int
 	{
 		// Return if the user doesn't have edit permissions.
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
@@ -404,7 +462,14 @@ class olrp_manager
 		return $post_id;
 	}
 
-	/* Creates, updates or deletes metadata for a post */
+	/**
+	 * Creates, updates or deletes metadata for a post
+	 * @param $post_id
+	 * @param $key
+	 * @param $value
+	 *
+	 * @return mixed
+	 */
 	public function add_update_delete_post_meta($post_id, $key, $value)
 	{
 		if ( get_post_meta( $post_id, $key, false ) ) {

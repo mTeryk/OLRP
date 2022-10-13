@@ -1,7 +1,13 @@
+
 <?php
+/*
+This file handles the taxonomies used by the OLRP. It creates them on init and adds
+dropdowns to the bulk edit page in admin to allow for filtering by taxonomies
+*/
 
-add_action( 'init', 'olrp_resource_register_taxonomies' );
-
+/**
+ * Registers Taxonomies with wordpress
+ */
 function olrp_resource_register_taxonomies() {
 
 	register_taxonomy( 'creator', 'olrp_resource', [
@@ -85,11 +91,6 @@ function olrp_resource_register_taxonomies() {
 			'items_list'            => 'Collections list'
 		]
 	] );
-
-
-
-
-
 
 	register_taxonomy( 'licensing', 'olrp_resource', [
 
@@ -179,7 +180,7 @@ function olrp_resource_register_taxonomies() {
  * @author  Mike Hemberger - Modified to support multiple taxonomies by Teryk Morris
  * @link http://thestizmedia.com/custom-post-type-filter-admin-custom-taxonomy/
  */
-add_action('restrict_manage_posts', 'olrp_filter_post_type_by_taxonomy');
+
 function olrp_filter_post_type_by_taxonomy() {
 
 	global $typenow;
@@ -218,7 +219,7 @@ function olrp_display_dropdown($typenow, $post_type, $taxonomy)
  * @author Mike Hemberger - Modified to support multiple taxonomies by Teryk Morris
  * @link http://thestizmedia.com/custom-post-type-filter-admin-custom-taxonomy/
  */
-add_filter('parse_query', 'olrp_convert_id_to_term_in_query');
+
 function olrp_convert_id_to_term_in_query($query) {
 	global $pagenow;
 	$post_type  = 'olrp_resource'; // change to your post type

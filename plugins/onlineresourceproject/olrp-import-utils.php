@@ -1,21 +1,18 @@
 <?php
-/* These are the functions for importing resources from a CSV file
-*/
+/* This class contains methods for creating the OLRP Tools page and importing CSV files containing resources */
 
-
-/** Add the OLRP Tools Menu and Page
- *
- */
 class olrp_data
 {
-	public olrp_manager $olrp_m;
-
 	function __construct(olrp_manager $olrp_m)
 	{
 		$this->olrp_m = $olrp_m;
 	}
 
-	function olrp_create_menu_page() {
+	/** Add the OLRP Tools Menu and Page
+	 *
+	 */
+	function olrp_create_menu_page()
+	{
 
 		//create custom top-level menu
 		add_menu_page( 'OLRP Tools Page', 'OLRP Tools',
@@ -25,7 +22,8 @@ class olrp_data
 		}
 
 
-/** Draw the OLRP Tools Page
+/**
+ * Draw the OLRP Tools Page
  *
  */
 	function olrp_tools_page()
@@ -191,9 +189,7 @@ class olrp_data
 		return $metakeys;
 
 	}
-/* creates a two dimensional array with each row containing an array of
-key/value pairs. The keys are taken from the header of the .csv file
-*/
+
 /** Converts a csv into a php array
  *
  * Creates a two dimensional array with each row containing an array of
