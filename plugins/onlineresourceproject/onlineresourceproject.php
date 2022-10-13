@@ -40,6 +40,10 @@ class olrp_manager
 
 	function __construct()
 	{
+		/* Registering a callback with Wordpress. Since the init function is a method of a class we pass an array containing the
+		 * class object and the method name which allows wp to find and call it. If the init function was not in a class we could
+		 * just pass the function name 'init'. Another option is to pass a static method using the notation 'class::method'
+		 */
 		add_action( 'init', [$this, 'init']);
 	}
 
@@ -73,6 +77,7 @@ class olrp_manager
 		/* Save our metadata when the post is saved*/
 		add_action( 'save_post_olrp_resource', array($this,"save_events_meta"),1,2);
 
+		/* Modify the bloginfo block to allow better styling */
 		//add_filter('bloginfo', array($olrp_m,"bloginfo_styling"),10,2);
 
 		/*Shortcodes to display the index table and the individual resources */
@@ -83,8 +88,7 @@ class olrp_manager
 		/* Fix search so our custom post type shows up in the main search */
 		add_filter( 'pre_get_posts', [$this,'fix_search'] );
 
-		/* Insert olrp_display_resource shortcode into all posts, should really do this in save_post but
-		then I would have to go and save all the already created posts*/
+		/* Insert content into all posts on display*/
 		add_filter('the_content',[$this->olrp_disp,'olrp_insert_content']);
 
 
